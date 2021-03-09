@@ -14,15 +14,15 @@ resource "aws_cognito_user_pool" "user_manage" {
 resource "aws_cognito_user_pool_client" "user_manage_secret" {
   name = var.app_name
 
-  generate_secret     = true
-  user_pool_id = aws_cognito_user_pool.user_manage.id
+  generate_secret = true
+  user_pool_id    = aws_cognito_user_pool.user_manage.id
 }
 
 resource "aws_cognito_user_pool_client" "user_manage" {
   name = var.app_name
 
-  generate_secret     = false
-  user_pool_id = aws_cognito_user_pool.user_manage.id
+  generate_secret = false
+  user_pool_id    = aws_cognito_user_pool.user_manage.id
 }
 
 resource "aws_cognito_identity_pool" "user_manage" {

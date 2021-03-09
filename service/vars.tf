@@ -1,4 +1,4 @@
 variable "app_name" {
-  type = string
+  type    = string
   default = "bookmark_list"
 }
