@@ -75,7 +75,7 @@ S3上に.mdとして保存。
 ### [post] book mark
 desc: ブックマークの登録をする
 
-path: https://domain/{userName}/bookmark
+path: https://domain/user/{userName}/bookmark
 
 request:
 ```.json
@@ -98,14 +98,14 @@ response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発�
 ### [delete] book mark
 desc: ブックマークの削除
 
-path: https://domain/{userName}/bookmark/{bookmarkID}
+path: https://domain/user/{userName}/bookmark/{bookmarkID}
 
 response: 成功 -> 204,　削除対象がない -> 404, 何らかのエラー発生 -> 500
 
 ### [get] book mark
 desc: ブックマークの一覧とメタデータ(tag, 登録日時)を取得
 
-path: https://domain/{userName}/bookmarks
+path: https://domain/user/{userName}/bookmarks
 
 response: 成功 -> 200, 何らかのエラー発生 -> 500
 ```.json
@@ -124,7 +124,7 @@ response: 成功 -> 200, 何らかのエラー発生 -> 500
 ### [post] tag
 desc: タグの登録をする
 
-path: https://bookmark/{userName}/tag
+path: https://domain/user/{userName}/tag
 
 request:
 ```.json
@@ -146,7 +146,7 @@ response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発�
 ### [put]] tag
 desc: タグの名前を変更
 
-path: https://bookmark/{userName}/tag/{tagID}
+path: https://domain/user/{userName}/tag/{tagID}
 
 request:
 ```.json
@@ -160,7 +160,7 @@ response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発�
 ### [get] tag
 desc: タグの一覧を取得
 
-path: https://bookmark/{userName}/tags
+path: https://domain/user/{userName}/tags
 
 response: 成功 -> 200, 何らかのエラー発生 -> 500
 ```.json
