@@ -57,7 +57,7 @@
 ##　マークダウンの保存
 
 S3上に.mdとして保存。  
-ファイル名はbookmarkIDとする。
+ファイル名はuserName/bookmarkIDとする。
 
 ## API
 
@@ -65,5 +65,111 @@ S3上に.mdとして保存。
 
 - bookmark　URLの登録 (POST)
 - bookmarkの削除 (DELETE)
+- bookmark一覧の取得(GET)
 - tagの登録 (POST)
 - tag名の変更 (PUT)
+- tagの取得(GET)
+
+## APIリソース
+
+### [post] book mark
+desc: ブックマークの登録をする
+
+path: https://domain/{userName}/bookmark
+
+request:
+```.json
+{
+  bookmarkURL: https://github.com/daiki-kon,
+  tagsIDs: [9c0f5738-6319-45cc-827b-c97471bae858, 8e6e97e6-260a-4d94-8f8b-da93efac4f13]
+}
+```
+
+response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発生 -> 500
+```.json
+{
+  data:{
+    bookmarkID: 86a7964f-4a23-40e9-a33b-dc41a98d5df3,
+    registeredDate: 2014-10-10T13:50:40+09:00
+  }
+}
+```
+
+### [delete] book mark
+desc: ブックマークの削除
+
+path: https://domain/{userName}/bookmark/{bookmarkID}
+
+response: 成功 -> 204,　削除対象がない -> 404, 何らかのエラー発生 -> 500
+
+### [get] book mark
+desc: ブックマークの一覧とメタデータ(tag, 登録日時)を取得
+
+path: https://domain/{userName}/bookmarks
+
+response: 成功 -> 200, 何らかのエラー発生 -> 500
+```.json
+{
+  data: [
+    {
+      id: 86a7964f-4a23-40e9-a33b-dc41a98d5df3,
+      url: https://github.com/daiki-kon,
+      registeredDate: 2014-10-10T13:50:40+09:00,
+      tags: [ React, Typescript ]
+    }
+  ]
+}
+```
+
+### [post] tag
+desc: タグの登録をする
+
+path: https://bookmark/{userName}/tag
+
+request:
+```.json
+{
+  bookmarkURL: https://github.com/daiki-kon
+  tagsIDs: [9c0f5738-6319-45cc-827b-c97471bae858, 8e6e97e6-260a-4d94-8f8b-da93efac4f13]
+}
+```
+
+response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発生 -> 500
+```.json
+{
+  data:{
+    tagID: 8e6e97e6-260a-4d94-8f8b-da93efac4f13
+  }
+}
+```
+
+### [put]] tag
+desc: タグの名前を変更
+
+path: https://bookmark/{userName}/tag/{tagID}
+
+request:
+```.json
+{
+  newName: Next.js
+}
+```
+
+response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発生 -> 500
+
+### [get] tag
+desc: タグの一覧を取得
+
+path: https://bookmark/{userName}/tags
+
+response: 成功 -> 200, 何らかのエラー発生 -> 500
+```.json
+{
+  data: [
+    {
+      tagID: 8e6e97e6-260a-4d94-8f8b-da93efac4f13,
+      tagName: React
+    }
+  ]
+}
+```
