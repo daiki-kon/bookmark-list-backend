@@ -6,7 +6,7 @@ plan:
 	terraform plan service/
 
 apply:
-	terraform apply service/
+	terraform apply -auto-approve service/
 
 fmt:
 	terraform fmt -recursive
