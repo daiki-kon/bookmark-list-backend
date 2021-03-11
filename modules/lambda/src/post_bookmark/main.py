@@ -17,7 +17,7 @@ def get_current_jst() -> str:
     date_now = datetime.now(tz=timezone.utc)
     date_now_iso = date_now.isoformat(timespec='minutes')
     return utc_to_jst(date_now_iso)
-    
+
 
 def put_item(userName: str, bookmark_url: str, tag_id_list: List[str]) -> None:
     dynamodb = boto3.resource('dynamodb')
@@ -38,9 +38,9 @@ def lambda_handler(event: dict, context):
     request_body: dict = json.loads(event['body'])
     bookmark_url: str = request_body['bookmarkURL']
     tag_id_list: List[str] = request_body['tagsIDs']
-    
+
     put_item(userName=userName, bookmark_url=bookmark_url, tag_id_list=tag_id_list )
-    
+
     return {
         'statusCode': 201,
     }
