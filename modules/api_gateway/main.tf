@@ -10,8 +10,8 @@ resource "aws_api_gateway_rest_api" "bookmark_list" {
 ## deploy
 resource "aws_api_gateway_deployment" "bookmark_list" {
   rest_api_id = aws_api_gateway_rest_api.bookmark_list.id
-  depends_on  = [
-    aws_api_gateway_integration.post_bookmark, 
+  depends_on = [
+    aws_api_gateway_integration.post_bookmark,
     aws_api_gateway_integration.delete_bookmark_id,
     aws_api_gateway_integration.get_bookmarks,
     aws_api_gateway_integration.post_tag
