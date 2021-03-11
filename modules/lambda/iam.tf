@@ -17,3 +17,8 @@ resource "aws_iam_role" "post_bookmark" {
 }
 EOF
 }
+
+resource "aws_iam_role_policy_attachment" "attach_post_bookmark_AWSLambdaBasicExecutionRol" {
+  role       = aws_iam_role.post_bookmark.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}

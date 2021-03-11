@@ -14,7 +14,7 @@ resource "aws_lambda_function" "post_bookmark" {
   source_code_hash = data.archive_file.post_bookmark.output_base64sha256
 
   timeout     = 10
-  memory_size = 1256
+  memory_size = 256
 
   tags = {
     App = var.app_name
