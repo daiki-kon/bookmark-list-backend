@@ -4,6 +4,6 @@ variable "app_name" {
 }
 
 variable "camel_app_name" {
-  type = string
+  type    = string
   default = "bookmarkList"
 }

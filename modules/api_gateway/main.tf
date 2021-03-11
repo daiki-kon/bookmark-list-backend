@@ -1,6 +1,30 @@
 ## domain
 resource "aws_api_gateway_rest_api" "bookmark_list" {
   name = var.camel_app_name
+
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+}
+
+## deploy
+resource "aws_api_gateway_deployment" "bookmark_list" {
+  rest_api_id = aws_api_gateway_rest_api.bookmark_list.id
+  depends_on  = [aws_api_gateway_integration.post_bookmark]
+
+  triggers = {
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.bookmark_list.body))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_api_gateway_stage" "bookmark_list" {
+  deployment_id = aws_api_gateway_deployment.bookmark_list.id
+  rest_api_id   = aws_api_gateway_rest_api.bookmark_list.id
+  stage_name    = "api"
 }
 
 ## user
@@ -24,10 +48,19 @@ resource "aws_api_gateway_resource" "bookmark" {
 }
 
 resource "aws_api_gateway_method" "post_bookmark" {
-  rest_api_id      = aws_api_gateway_rest_api.bookmark_list.id
-  resource_id      = aws_api_gateway_resource.bookmark.id
-  http_method      = "POST"
-  authorization    = "NONE"
+  rest_api_id   = aws_api_gateway_rest_api.bookmark_list.id
+  resource_id   = aws_api_gateway_resource.bookmark.id
+  http_method   = "POST"
+  authorization = "AWS_IAM"
+}
+
+resource "aws_api_gateway_integration" "post_bookmark" {
+  rest_api_id             = aws_api_gateway_rest_api.bookmark_list.id
+  resource_id             = aws_api_gateway_resource.bookmark.id
+  http_method             = aws_api_gateway_method.post_bookmark.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = var.post_bookmark_lambda_function_invoke_arn
 }
 
 resource "aws_api_gateway_resource" "bookmark_id" {
