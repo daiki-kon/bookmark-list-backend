@@ -17,6 +17,12 @@ resource "aws_lambda_function" "post_bookmark" {
   timeout     = 10
   memory_size = 256
 
+  environment {
+    variables = {
+      bookmark_dynamoDB_table_name = var.bookmark_dynamodb_table_name
+    }
+  }
+
   tags = {
     App = var.app_name
   }
