@@ -9,3 +9,7 @@ output "delete_bookmark_id_lambda_function_invoke_arn" {
 output "get_bookmarks_lambda_function_invoke_arn" {
   value = aws_lambda_function.get_bookmarks.invoke_arn
 }
+
+output "post_tag_lambda_function_invoke_arn" {
+  value = aws_lambda_function.post_tag.invoke_arn
+}

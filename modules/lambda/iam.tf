@@ -75,3 +75,29 @@ resource "aws_iam_role_policy_attachment" "attach_get_bookmarks_lambda_AWSLambda
   role       = aws_iam_role.get_bookmarks_lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+## post_tag
+resource "aws_iam_role" "post_tag_lambda" {
+  name = "post_tag_lambda"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "lambda.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "attach_post_tag_lambda_AWSLambdaBasicExecutionRol" {
+  role       = aws_iam_role.post_tag_lambda.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}

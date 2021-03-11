@@ -10,7 +10,12 @@ resource "aws_api_gateway_rest_api" "bookmark_list" {
 ## deploy
 resource "aws_api_gateway_deployment" "bookmark_list" {
   rest_api_id = aws_api_gateway_rest_api.bookmark_list.id
-  depends_on  = [aws_api_gateway_integration.post_bookmark]
+  depends_on  = [
+    aws_api_gateway_integration.post_bookmark, 
+    aws_api_gateway_integration.delete_bookmark_id,
+    aws_api_gateway_integration.get_bookmarks,
+    aws_api_gateway_integration.post_tag
+  ]
 
   triggers = {
     redeployment = sha256(file("modules/api_gateway/main.tf"))
@@ -76,7 +81,7 @@ resource "aws_api_gateway_method" "delete_bookmark_id" {
   authorization = "AWS_IAM"
 }
 
-resource "aws_api_gateway_integration" "delete_bookmark" {
+resource "aws_api_gateway_integration" "delete_bookmark_id" {
   rest_api_id             = aws_api_gateway_rest_api.bookmark_list.id
   resource_id             = aws_api_gateway_resource.bookmark_id.id
   http_method             = aws_api_gateway_method.delete_bookmark_id.http_method
@@ -115,10 +120,19 @@ resource "aws_api_gateway_resource" "tag" {
 }
 
 resource "aws_api_gateway_method" "post_tag" {
-  rest_api_id      = aws_api_gateway_rest_api.bookmark_list.id
-  resource_id      = aws_api_gateway_resource.tag.id
-  http_method      = "POST"
-  authorization    = "NONE"
+  rest_api_id   = aws_api_gateway_rest_api.bookmark_list.id
+  resource_id   = aws_api_gateway_resource.tag.id
+  http_method   = "POST"
+  authorization = "AWS_IAM"
+}
+
+resource "aws_api_gateway_integration" "post_tag" {
+  rest_api_id             = aws_api_gateway_rest_api.bookmark_list.id
+  resource_id             = aws_api_gateway_resource.tag.id
+  http_method             = aws_api_gateway_method.post_tag.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = var.post_tag_lambda_function_invoke_arn
 }
 
 resource "aws_api_gateway_resource" "tag_id" {
