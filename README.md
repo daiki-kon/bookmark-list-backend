@@ -80,8 +80,8 @@ path: https://domain/user/{userName}/bookmark
 request:
 ```.json
 {
-  bookmarkURL: "https://github.com/daiki-kon",
-  tagsIDs: ["9c0f5738-6319-45cc-827b-c97471bae858", "8e6e97e6-260a-4d94-8f8b-da93efac4f13"];
+  "bookmarkURL": "https://github.com/daiki-kon",
+  "tagsIDs": ["9c0f5738-6319-45cc-827b-c97471bae858", "8e6e97e6-260a-4d94-8f8b-da93efac4f13"];
 }
 ```
 
@@ -89,8 +89,8 @@ response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発�
 ```.json
 {
   data:{
-    bookmarkID: "86a7964f-4a23-40e9-a33b-dc41a98d5df3",
-    registeredDate: "2014-10-10T13:50:40+09:00"
+    "bookmarkID": "86a7964f-4a23-40e9-a33b-dc41a98d5df3",
+    "registeredDate": "2014-10-10T13:50:40+09:00"
   }
 }
 ```
@@ -112,10 +112,10 @@ response: 成功 -> 200, 何らかのエラー発生 -> 500
 {
   data: [
     {
-      id: "86a7964f-4a23-40e9-a33b-dc41a98d5df3",
-      url: "https://github.com/daiki-kon",
-      registeredDate: "2014-10-10T13:50:40+09:00",
-      tags: [ "React", "Typescript" ]
+      "id": "86a7964f-4a23-40e9-a33b-dc41a98d5df3",
+      "url": "https://github.com/daiki-kon",
+      "registeredDate": "2014-10-10T13:50:40+09:00",
+      "tags": [ "React", "Typescript" ]
     }
   ]
 }
@@ -129,16 +129,16 @@ path: https://domain/user/{userName}/tag
 request:
 ```.json
 {
-  bookmarkURL: "https://github.com/daiki-kon"
-  tagsIDs: ["9c0f5738-6319-45cc-827b-c97471bae858", "8e6e97e6-260a-4d94-8f8b-da93efac4f13"]
+  "bookmarkURL": "https://github.com/daiki-kon"
+  "tagsIDs": ["9c0f5738-6319-45cc-827b-c97471bae858", "8e6e97e6-260a-4d94-8f8b-da93efac4f13"]
 }
 ```
 
 response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発生 -> 500
 ```.json
 {
-  data:{
-    tagID: "8e6e97e6-260a-4d94-8f8b-da93efac4f13"
+  "data":{
+    "tagID": "8e6e97e6-260a-4d94-8f8b-da93efac4f13"
   }
 }
 ```
@@ -151,7 +151,7 @@ path: https://domain/user/{userName}/tag/{tagID}
 request:
 ```.json
 {
-  newName: "Next.js"
+  "newName": "Next.js"
 }
 ```
 
@@ -165,10 +165,10 @@ path: https://domain/user/{userName}/tags
 response: 成功 -> 200, 何らかのエラー発生 -> 500
 ```.json
 {
-  data: [
+  "data": [
     {
-      tagID: "8e6e97e6-260a-4d94-8f8b-da93efac4f13",
-      tagName: "React"
+      "tagID": "8e6e97e6-260a-4d94-8f8b-da93efac4f13",
+      "tagName": "React"
     }
   ]
 }
