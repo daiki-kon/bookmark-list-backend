@@ -15,6 +15,7 @@ module "api_gateway" {
   delete_bookmark_id_lambda_function_invoke_arn = module.lambda.delete_bookmark_id_lambda_function_invoke_arn
   get_bookmarks_lambda_function_invoke_arn      = module.lambda.get_bookmarks_lambda_function_invoke_arn
   post_tag_lambda_function_invoke_arn           = module.lambda.post_tag_lambda_function_invoke_arn
+  put_tag_lambda_function_invoke_arn            = module.lambda.put_tag_lambda_function_invoke_arn
 }
 
 module "lambda" {

@@ -17,3 +17,7 @@ variable "get_bookmarks_lambda_function_invoke_arn" {
 variable "post_tag_lambda_function_invoke_arn" {
   type = string
 }
+
+variable "put_tag_lambda_function_invoke_arn" {
+  type = string
+}
