@@ -7,3 +7,8 @@ resource "aws_cloudwatch_log_group" "delete_bookmark_id" {
   name              = "/aws/lambda/${aws_lambda_function.delete_bookmark_id.function_name}"
   retention_in_days = 1
 }
+
+resource "aws_cloudwatch_log_group" "get_bookmarks" {
+  name              = "/aws/lambda/${aws_lambda_function.get_bookmarks.function_name}"
+  retention_in_days = 1
+}

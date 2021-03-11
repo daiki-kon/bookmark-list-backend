@@ -9,10 +9,11 @@ module "dynamoDB" {
 }
 
 module "api_gateway" {
-  source                                   = "../modules/api_gateway"
-  camel_app_name                           = var.camel_app_name
-  post_bookmark_lambda_function_invoke_arn = module.lambda.post_bookmark_lambda_function_invoke_arn
+  source                                        = "../modules/api_gateway"
+  camel_app_name                                = var.camel_app_name
+  post_bookmark_lambda_function_invoke_arn      = module.lambda.post_bookmark_lambda_function_invoke_arn
   delete_bookmark_id_lambda_function_invoke_arn = module.lambda.delete_bookmark_id_lambda_function_invoke_arn
+  get_bookmarks_lambda_function_invoke_arn      = module.lambda.get_bookmarks_lambda_function_invoke_arn
 }
 
 module "lambda" {

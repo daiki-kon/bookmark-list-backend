@@ -92,10 +92,19 @@ resource "aws_api_gateway_resource" "bookmarks" {
 }
 
 resource "aws_api_gateway_method" "get_bookmarks" {
-  rest_api_id      = aws_api_gateway_rest_api.bookmark_list.id
-  resource_id      = aws_api_gateway_resource.bookmarks.id
-  http_method      = "GET"
-  authorization    = "NONE"
+  rest_api_id   = aws_api_gateway_rest_api.bookmark_list.id
+  resource_id   = aws_api_gateway_resource.bookmarks.id
+  http_method   = "GET"
+  authorization = "AWS_IAM"
+}
+
+resource "aws_api_gateway_integration" "get_bookmarks" {
+  rest_api_id             = aws_api_gateway_rest_api.bookmark_list.id
+  resource_id             = aws_api_gateway_resource.bookmarks.id
+  http_method             = aws_api_gateway_method.get_bookmarks.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = var.get_bookmarks_lambda_function_invoke_arn
 }
 
 ## tag
