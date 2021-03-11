@@ -39,7 +39,7 @@ def lambda_handler(event: dict, context):
     bookmark_url: str = request_body['bookmarkURL']
     tag_id_list: List[str] = request_body['tagsIDs']
 
-    put_item(userName=userName, bookmark_url=bookmark_url, tag_id_list=tag_id_list )
+    put_item(userName=userName, bookmark_url=bookmark_url, tag_id_list=tag_id_list)
 
     return {
         'statusCode': 201,
