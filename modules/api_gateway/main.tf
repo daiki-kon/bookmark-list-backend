@@ -13,7 +13,7 @@ resource "aws_api_gateway_deployment" "bookmark_list" {
   depends_on  = [aws_api_gateway_integration.post_bookmark]
 
   triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.bookmark_list.body))
+    redeployment = sha256(file("modules/api_gateway/main.tf"))
   }
 
   lifecycle {
