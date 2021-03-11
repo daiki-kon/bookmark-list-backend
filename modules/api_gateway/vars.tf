@@ -21,3 +21,7 @@ variable "post_tag_lambda_function_invoke_arn" {
 variable "put_tag_lambda_function_invoke_arn" {
   type = string
 }
+
+variable "get_tags_lambda_function_invoke_arn" {
+  type = string
+}

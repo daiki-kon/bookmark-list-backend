@@ -15,7 +15,8 @@ resource "aws_api_gateway_deployment" "bookmark_list" {
     aws_api_gateway_integration.delete_bookmark_id,
     aws_api_gateway_integration.get_bookmarks,
     aws_api_gateway_integration.post_tag,
-    aws_api_gateway_integration.put_tag
+    aws_api_gateway_integration.put_tag,
+    aws_api_gateway_integration.get_tags
   ]
 
   triggers = {
@@ -165,8 +166,17 @@ resource "aws_api_gateway_resource" "tags" {
 }
 
 resource "aws_api_gateway_method" "get_tags" {
-  rest_api_id      = aws_api_gateway_rest_api.bookmark_list.id
-  resource_id      = aws_api_gateway_resource.tags.id
-  http_method      = "GET"
-  authorization    = "NONE"
+  rest_api_id   = aws_api_gateway_rest_api.bookmark_list.id
+  resource_id   = aws_api_gateway_resource.tags.id
+  http_method   = "GET"
+  authorization = "AWS_IAM"
+}
+
+resource "aws_api_gateway_integration" "get_tags" {
+  rest_api_id             = aws_api_gateway_rest_api.bookmark_list.id
+  resource_id             = aws_api_gateway_resource.tags.id
+  http_method             = aws_api_gateway_method.get_tags.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = var.get_tags_lambda_function_invoke_arn
 }

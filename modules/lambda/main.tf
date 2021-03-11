@@ -152,3 +152,34 @@ resource "aws_lambda_permission" "put_tag" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${var.api_gateway_rest_api_bookmark_list_execution_arn}/*/*"
 }
+
+## get_tags
+data "archive_file" "get_tags" {
+  type        = "zip"
+  source_dir  = "modules/lambda/src/get_tags/"
+  output_path = "modules/lambda/src/get_tags.zip"
+}
+
+resource "aws_lambda_function" "get_tags" {
+  function_name = "get_tags"
+  handler       = "main.lambda_handler"
+  role          = aws_iam_role.get_tags_lambda.arn
+  runtime       = "python3.8"
+
+  filename         = data.archive_file.get_tags.output_path
+  source_code_hash = data.archive_file.get_tags.output_base64sha256
+
+  timeout     = 10
+  memory_size = 256
+
+  tags = {
+    App = var.app_name
+  }
+}
+
+resource "aws_lambda_permission" "get_tags" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_tags.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_rest_api_bookmark_list_execution_arn}/*/*"
+}

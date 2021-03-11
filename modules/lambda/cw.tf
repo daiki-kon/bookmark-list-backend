@@ -22,3 +22,8 @@ resource "aws_cloudwatch_log_group" "put_tag" {
   name              = "/aws/lambda/${aws_lambda_function.put_tag.function_name}"
   retention_in_days = 1
 }
+
+resource "aws_cloudwatch_log_group" "get_tags" {
+  name              = "/aws/lambda/${aws_lambda_function.get_tags.function_name}"
+  retention_in_days = 1
+}
