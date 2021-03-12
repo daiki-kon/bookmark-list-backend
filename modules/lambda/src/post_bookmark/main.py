@@ -1,4 +1,5 @@
 import boto3
+from botocore.exceptions import ClientError
 import json
 import os
 from datetime import datetime, timedelta, timezone
@@ -22,38 +23,48 @@ def get_current_jst() -> str:
     return utc_to_jst(date_now_iso)
 
 
-def put_item(userName: str, bookmark_id: str, bookmark_url: str, tag_id_list: List[str], registered_date: str) -> None:
+def put_item(user_name: str, bookmark_id: str, bookmark_url: str, tag_id_list: List[str], registered_date: str) -> dict:
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(bookmark_dynamoDB_table_name)
-    response = table.put_item(
-        Item={
-            'userName': userName,
-            'bookmarkID': str(uuid4()),
-            'bookmarkURL': bookmark_url,
-            'registeredDate': registered_date,
-            'tagIDs': tag_id_list
-        }
-    )
+
+    try:
+        response = table.put_item(
+            Item={
+                'userName': user_name,
+                'bookmarkID': str(uuid4()),
+                'bookmarkURL': bookmark_url,
+                'registeredDate': registered_date,
+                'tagIDs': tag_id_list
+            }
+        )
+    except ClientError as e:
+        raise
+
     return response
 
 
 def lambda_handler(event: dict, context):
-    userName: str = event['pathParameters']['userName']
+    user_name: str = event['pathParameters']['userName']
     request_body: dict = json.loads(event['body'])
     bookmark_url: str = request_body['bookmarkURL']
     tag_id_list: List[str] = request_body['tagsIDs']
     bookmark_id: str = str(uuid4())
     registered_date: str = get_current_jst()
 
-    put_item(userName=userName, bookmark_id=bookmark_id, bookmark_url=bookmark_url,
+    put_item(user_name=user_name, bookmark_id=bookmark_id, bookmark_url=bookmark_url,
              tag_id_list=tag_id_list, registered_date=registered_date)
 
-    response_body = {
-        'data': {
-            'bookmarkID': bookmark_id,
-            'registeredDate': registered_date
+    try:
+        response_body = {
+            'data': {
+                'bookmarkID': bookmark_id,
+                'registeredDate': registered_date
+            }
         }
-    }
+    except ClientError:
+        return {
+            'statusCode': 500,
+        }
 
     return {
         'statusCode': 201,
