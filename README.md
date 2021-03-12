@@ -129,7 +129,7 @@ path: https://domain/user/{userName}/tag
 request:
 ```.json
 {
-  "bookmarkURL": "https://github.com/daiki-kon"
+  "bookmarkURL": "https://github.com/daiki-kon",
   "tagsIDs": ["9c0f5738-6319-45cc-827b-c97471bae858", "8e6e97e6-260a-4d94-8f8b-da93efac4f13"]
 }
 ```
