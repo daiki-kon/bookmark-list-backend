@@ -81,14 +81,14 @@ request:
 ```.json
 {
   "bookmarkURL": "https://github.com/daiki-kon",
-  "tagsIDs": ["9c0f5738-6319-45cc-827b-c97471bae858", "8e6e97e6-260a-4d94-8f8b-da93efac4f13"];
+  "tagsIDs": ["9c0f5738-6319-45cc-827b-c97471bae858", "8e6e97e6-260a-4d94-8f8b-da93efac4f13"]
 }
 ```
 
 response: 成功 -> 201, すでに登録済み -> 409, 何らかのエラー発生 -> 500
 ```.json
 {
-  data:{
+  "data":{
     "bookmarkID": "86a7964f-4a23-40e9-a33b-dc41a98d5df3",
     "registeredDate": "2014-10-10T13:50:40+09:00"
   }
@@ -110,7 +110,7 @@ path: https://domain/user/{userName}/bookmarks
 response: 成功 -> 200, 何らかのエラー発生 -> 500
 ```.json
 {
-  data: [
+  "data": [
     {
       "id": "86a7964f-4a23-40e9-a33b-dc41a98d5df3",
       "url": "https://github.com/daiki-kon",
