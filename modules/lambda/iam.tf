@@ -65,6 +65,28 @@ resource "aws_iam_role" "delete_bookmark_id_lambda" {
 EOF
 }
 
+resource "aws_iam_role_policy" "delete_bookmark_id_lambda" {
+  name = "delete_bookmark_id_lambda"
+  role = aws_iam_role.delete_bookmark_id_lambda.id
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "dynamodb:DeleteItem",
+          "dynamodb:GetItem",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
+
 resource "aws_iam_role_policy_attachment" "attach_delete_bookmark_id_lambda_AWSLambdaBasicExecutionRol" {
   role       = aws_iam_role.delete_bookmark_id_lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
