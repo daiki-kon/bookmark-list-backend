@@ -112,8 +112,8 @@ response: 成功 -> 200, 何らかのエラー発生 -> 500
 {
   "data": [
     {
-      "id": "86a7964f-4a23-40e9-a33b-dc41a98d5df3",
-      "url": "https://github.com/daiki-kon",
+      "bookmarkID": "86a7964f-4a23-40e9-a33b-dc41a98d5df3",
+      "bookmarkURL": "https://github.com/daiki-kon",
       "registeredDate": "2014-10-10T13:50:40+09:00",
       "tags": [ "React", "Typescript" ]
     }
