@@ -117,12 +117,12 @@ response: 成功 -> 200, 何らかのエラー発生 -> 500
       "registeredDate": "2014-10-10T13:50:40+09:00",
       "tags": [
         {
-          tagID: 9c0f5738-6319-45cc-827b-c97471bae858,
-          tagName: "React"
+          "tagID": "9c0f5738-6319-45cc-827b-c97471bae858",
+          "tagName": "React"
         },
         {
-          tagID: 8e6e97e6-260a-4d94-8f8b-da93efac4f13,
-          tagName: "Typescript"
+          "tagID": "8e6e97e6-260a-4d94-8f8b-da93efac4f13",
+          "tagName": "Typescript"
         }
       ]
     }
