@@ -5,6 +5,7 @@ import json
 from itertools import chain
 import os
 
+
 bookmark_dynamoDB_table_name = os.environ['bookmark_dynamoDB_table_name']
 tag_dynamodb_table_name = os.environ['tag_dynamodb_table_name']
 
@@ -60,7 +61,12 @@ def lambda_handler(event: dict, context):
                     'bookmarkID': bookmark['bookmarkID'],
                     'bookmarkURL': bookmark['bookmarkURL'],
                     'registeredDate': bookmark['registeredDate'],
-                    'tags':[tag_hash[tag_id] for tag_id in bookmark['tagIDs']]
+                    'tags':[
+                        {
+                            'tagID': tag_id,
+                            'tag_name': tag_hash[tag_id]
+                        }for tag_id in bookmark['tagIDs']
+                    ]
                 } for bookmark in query_response
             ]
         }
@@ -75,7 +81,6 @@ def lambda_handler(event: dict, context):
             'statusCode': 500,
         }
     except KeyError as e:
-        print(e.response['Error']['Message'])
         return {
             'statusCode': 500,
         }
