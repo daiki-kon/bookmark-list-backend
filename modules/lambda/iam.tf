@@ -113,6 +113,26 @@ resource "aws_iam_role" "get_bookmarks_lambda" {
 EOF
 }
 
+resource "aws_iam_role_policy" "get_bookmarks_lambda" {
+  name = "get_bookmarks_lambda"
+  role = aws_iam_role.get_bookmarks_lambda.id
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "dynamodb:Query",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
 resource "aws_iam_role_policy_attachment" "attach_get_bookmarks_lambda_AWSLambdaBasicExecutionRol" {
   role       = aws_iam_role.get_bookmarks_lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"

@@ -41,7 +41,6 @@ def delete_item(user_name: str, bookmark_id: str, table: object) -> bool:
         return False
 
 def lambda_handler(event: dict, context):
-    print(json.dumps(event))
     user_name: str = event['pathParameters']['userName']
     bookmark_id: str = event['pathParameters']['bookmarkID']
 
