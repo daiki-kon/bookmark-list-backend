@@ -129,6 +129,12 @@ resource "aws_lambda_function" "post_tag" {
   timeout     = 10
   memory_size = 256
 
+  environment {
+    variables = {
+      tag_dynamodb_table_name      = var.tag_dynamodb_table_name
+    }
+  }
+
   tags = {
     App = var.app_name
   }
