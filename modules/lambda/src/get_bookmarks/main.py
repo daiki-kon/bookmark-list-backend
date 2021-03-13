@@ -3,11 +3,15 @@ from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 import json
 from itertools import chain
+import os
+
+bookmark_dynamoDB_table_name = os.environ['bookmark_dynamoDB_table_name']
+tag_dynamodb_table_name = os.environ['tag_dynamodb_table_name']
 
 
 def query_user_name(user_name: str) -> dict:
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('bookmark_list_bookmark')
+    table = dynamodb.Table(bookmark_dynamoDB_table_name)
 
     try:
         response = table.query(
@@ -27,7 +31,7 @@ def create_unique_tag_list(tag_list: list) -> list:
 
 def create_tag_hash(tag_list: list, user_name: str) -> dict:
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('bookmark_list_tag')
+    table = dynamodb.Table(tag_dynamodb_table_name)
 
     try:
         response = table.query(

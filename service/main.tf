@@ -24,4 +24,5 @@ module "lambda" {
   app_name                                         = var.app_name
   api_gateway_rest_api_bookmark_list_execution_arn = module.api_gateway.api_gateway_rest_api_bookmark_list_execution_arn
   bookmark_dynamodb_table_name                     = module.dynamoDB.bookmark_dynamodb_table_name
+  tag_dynamodb_table_name                          = module.dynamoDB.tag_dynamodb_table_name
 }
