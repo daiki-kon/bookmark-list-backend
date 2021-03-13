@@ -205,6 +205,26 @@ resource "aws_iam_role" "put_tag_lambda" {
 EOF
 }
 
+resource "aws_iam_role_policy" "put_tag_lambda" {
+  name = "put_tag_lambda"
+  role = aws_iam_role.put_tag_lambda.id
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "dynamodb:UpdateItem",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+
 resource "aws_iam_role_policy_attachment" "attach_put_tag_lambda_AWSLambdaBasicExecutionRol" {
   role       = aws_iam_role.put_tag_lambda.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
