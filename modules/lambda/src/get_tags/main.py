@@ -2,11 +2,14 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import ClientError
 import json
+import os
+
+tag_dynamodb_table_name = os.environ['tag_dynamodb_table_name']
 
 
 def query_user_tag(user_name: str) -> dict:
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('bookmark_list_tag')
+    table = dynamodb.Table(tag_dynamodb_table_name)
 
     try:
         response = table.query(

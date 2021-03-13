@@ -131,7 +131,7 @@ resource "aws_lambda_function" "post_tag" {
 
   environment {
     variables = {
-      tag_dynamodb_table_name      = var.tag_dynamodb_table_name
+      tag_dynamodb_table_name = var.tag_dynamodb_table_name
     }
   }
 
@@ -166,6 +166,12 @@ resource "aws_lambda_function" "put_tag" {
   timeout     = 10
   memory_size = 256
 
+  environment {
+    variables = {
+      tag_dynamodb_table_name = var.tag_dynamodb_table_name
+    }
+  }
+
   tags = {
     App = var.app_name
   }
@@ -196,6 +202,12 @@ resource "aws_lambda_function" "get_tags" {
 
   timeout     = 10
   memory_size = 256
+
+  environment {
+    variables = {
+      tag_dynamodb_table_name = var.tag_dynamodb_table_name
+    }
+  }
 
   tags = {
     App = var.app_name

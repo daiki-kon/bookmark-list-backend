@@ -1,12 +1,15 @@
 import boto3
 from botocore.exceptions import ClientError
 import json
+import os
+
+tag_dynamodb_table_name = os.environ['tag_dynamodb_table_name']
 
 
 def update_item(user_name: str, tag_id: str, new_tag_name: str) -> dict:
     dynamodb = boto3.resource('dynamodb')
 
-    table = dynamodb.Table('bookmark_list_tag')
+    table = dynamodb.Table(tag_dynamodb_table_name)
 
     try:
         response = table.update_item(
