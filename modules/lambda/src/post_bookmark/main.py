@@ -51,22 +51,23 @@ def lambda_handler(event: dict, context):
     bookmark_id: str = str(uuid4())
     registered_date: str = get_current_jst()
 
-    put_item(user_name=user_name, bookmark_id=bookmark_id, bookmark_url=bookmark_url,
-             tag_id_list=tag_id_list, registered_date=registered_date)
-
     try:
+
+        put_item(user_name=user_name, bookmark_id=bookmark_id, bookmark_url=bookmark_url,
+                 tag_id_list=tag_id_list, registered_date=registered_date)
+
         response_body = {
             'data': {
                 'bookmarkID': bookmark_id,
                 'registeredDate': registered_date
             }
         }
+
+        return {
+            'statusCode': 201,
+            'body': json.dumps(response_body)
+        }
     except ClientError:
         return {
             'statusCode': 500,
         }
-
-    return {
-        'statusCode': 201,
-        'body': json.dumps(response_body)
-    }
