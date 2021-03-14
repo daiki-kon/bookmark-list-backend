@@ -182,6 +182,23 @@ response: 成功 -> 200, 何らかのエラー発生 -> 500
 }
 ```
 
+### [get] url
+desc: urlのogpを取得
+
+path: https://domain/url/{url}
+
+response: 成功 -> 200, 何らかのエラー発生 -> 500
+ogpが設定されていないときは空文字を返す
+```.json
+{
+  "data": {
+      "ogImageURL": "https://sample.png",
+      "ogTitle": "repo",
+      "ogSiteName": "GitHub"
+  }
+}
+```
+
 参考にしたサイト
 https://developer.mozilla.org/ja/docs/Web/HTTP/Status
 https://qiita.com/uenosy/items/ba9dbc70781bddc4a491#%E6%88%90%E5%8A%9F%E3%81%97%E3%81%9F%E5%A0%B4%E5%90%88

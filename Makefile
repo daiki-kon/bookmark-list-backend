@@ -10,3 +10,7 @@ apply:
 
 fmt:
 	terraform fmt -recursive
+
+pip:
+	pip3 install -t ./modules/lambda/lib/requests/python/ requests
+	pip3 install -t ./modules/lambda/lib/beautifulsoup4/python/ beautifulsoup4

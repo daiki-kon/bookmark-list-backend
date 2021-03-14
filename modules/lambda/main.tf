@@ -220,3 +220,32 @@ resource "aws_lambda_permission" "get_tags" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${var.api_gateway_rest_api_bookmark_list_execution_arn}/*/*"
 }
+
+## get_ogp
+data "archive_file" "get_ogp" {
+  type        = "zip"
+  source_dir  = "modules/lambda/src/get_ogp/"
+  output_path = "modules/lambda/src/get_ogp.zip"
+}
+
+resource "aws_lambda_function" "get_ogp" {
+  function_name = "get_ogp"
+  handler       = "main.lambda_handler"
+  role          = aws_iam_role.post_bookmark_lambda.arn
+  runtime       = "python3.8"
+
+  filename         = data.archive_file.get_ogp.output_path
+  source_code_hash = data.archive_file.get_ogp.output_base64sha256
+
+  timeout     = 10
+  memory_size = 256
+
+  layers = [
+    aws_lambda_layer_version.requests.arn,
+    aws_lambda_layer_version.beautifulsoup4.arn
+  ]
+
+  tags = {
+    App = var.app_name
+  }
+}
