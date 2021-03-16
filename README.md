@@ -185,7 +185,9 @@ response: 成功 -> 200, 何らかのエラー発生 -> 500
 ### [get] url
 desc: urlのogpを取得
 
-path: https://domain/url/{url}
+path: https://domain/url
+
+query parameter -> url: string
 
 response: 成功 -> 200, 何らかのエラー発生 -> 500
 ogpが設定されていないときは空文字を返す

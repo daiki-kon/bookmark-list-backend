@@ -17,6 +17,7 @@ module "api_gateway" {
   post_tag_lambda_function_invoke_arn           = module.lambda.post_tag_lambda_function_invoke_arn
   put_tag_lambda_function_invoke_arn            = module.lambda.put_tag_lambda_function_invoke_arn
   get_tags_lambda_function_invoke_arn           = module.lambda.get_tags_lambda_function_invoke_arn
+  get_ogp_lambda_function_invoke_arn            = module.lambda.get_ogp_lambda_function_invoke_arn
 }
 
 module "lambda" {

@@ -249,3 +249,10 @@ resource "aws_lambda_function" "get_ogp" {
     App = var.app_name
   }
 }
+
+resource "aws_lambda_permission" "get_ogp" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_ogp.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${var.api_gateway_rest_api_bookmark_list_execution_arn}/*/*"
+}

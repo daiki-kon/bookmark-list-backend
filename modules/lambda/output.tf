@@ -21,3 +21,7 @@ output "put_tag_lambda_function_invoke_arn" {
 output "get_tags_lambda_function_invoke_arn" {
   value = aws_lambda_function.get_tags.invoke_arn
 }
+
+output "get_ogp_lambda_function_invoke_arn" {
+  value = aws_lambda_function.get_ogp.invoke_arn
+}

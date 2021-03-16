@@ -4,7 +4,7 @@ import json
 
 
 def lambda_handler(event: dict, context):
-    url: str = event['pathParameters']['url']
+    url: str = event['queryStringParameters']['url']
     res = requests.get(url)
 
     soup = BeautifulSoup(res.text, 'html.parser')
