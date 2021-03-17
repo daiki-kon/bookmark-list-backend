@@ -16,14 +16,15 @@ def lambda_handler(event: dict, context):
         'meta', attrs={'property': 'og:site_name', 'content': True})
 
     response_body = {
-        'data': {
-            'ogSiteName': og_site_name['content'] if og_img is not None else '',
-            'ogTitle': og_title['content'] if og_img is not None else '',
-            'ogImageURL': og_img['content'] if og_img is not None else ''
-        }
+        'ogSiteName': og_site_name['content'] if og_img is not None else '',
+        'ogTitle': og_title['content'] if og_img is not None else '',
+        'ogImageURL': og_img['content'] if og_img is not None else ''
     }
 
     return {
         'statusCode': 200,
+        'headers': {
+            "Access-Control-Allow-Origin": "*",
+        },
         'body': json.dumps(response_body)
     }
