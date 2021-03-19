@@ -55,24 +55,26 @@ def lambda_handler(event: dict, context):
         tag_hash = create_tag_hash(
             tag_list=unique_tag_list, user_name=user_name)
 
-        response_body = {
-            'data': [
-                {
-                    'bookmarkID': bookmark['bookmarkID'],
-                    'bookmarkURL': bookmark['bookmarkURL'],
-                    'registeredDate': bookmark['registeredDate'],
-                    'tags':[
-                        {
-                            'tagID': tag_id,
-                            'tag_name': tag_hash[tag_id]
-                        }for tag_id in bookmark['tagIDs']
-                    ]
-                } for bookmark in query_response
-            ]
-        }
+        response_body = [
+            {
+                'bookmarkID': bookmark['bookmarkID'],
+                'bookmarkURL': bookmark['bookmarkURL'],
+                'registeredDate': bookmark['registeredDate'],
+                'tags':[
+                    {
+                        'tagID': tag_id,
+                        'tag_name': tag_hash[tag_id]
+                    }for tag_id in bookmark['tagIDs']
+                ]
+            } for bookmark in query_response
+        ]
 
         return {
             'statusCode': 200,
+            'headers': {
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+            },
             'body': json.dumps(response_body)
         }
 
