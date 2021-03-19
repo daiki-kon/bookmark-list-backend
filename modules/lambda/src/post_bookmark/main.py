@@ -65,6 +65,10 @@ def lambda_handler(event: dict, context):
 
         return {
             'statusCode': 201,
+            'headers': {
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+            },
             'body': json.dumps(response_body)
         }
     except ClientError:
