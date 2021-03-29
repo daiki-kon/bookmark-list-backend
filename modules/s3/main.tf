@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "markdown" {
 
   cors_rule {
     allowed_headers = ["*"]
-    allowed_methods = ["GET","POST","PUT"]
+    allowed_methods = ["GET", "POST", "PUT"]
     allowed_origins = ["*"]
   }
 

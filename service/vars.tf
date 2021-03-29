@@ -12,3 +12,8 @@ variable "kebab_app_name" {
   type    = string
   default = "bookmark-list"
 }
+
+variable "region" {
+  type    = string
+  default = "us-east-1"
+}
