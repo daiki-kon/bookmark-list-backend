@@ -27,3 +27,8 @@ module "lambda" {
   bookmark_dynamodb_table_name                     = module.dynamoDB.bookmark_dynamodb_table_name
   tag_dynamodb_table_name                          = module.dynamoDB.tag_dynamodb_table_name
 }
+
+module "s3" {
+  source   = "../modules/s3"
+  app_name = var.kebab_app_name
+}
