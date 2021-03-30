@@ -45,3 +45,7 @@ module "parameter_store" {
   api_name                    = module.api_gateway.bookmark_list_aws_api_gateway_rest_api_name
   markdown_s3_bucker_name     = module.s3.markdown_aws_s3_bucket_name
 }
+
+module "ecr" {
+  source                      = "../modules/ecr"
+}
