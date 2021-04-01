@@ -49,3 +49,8 @@ module "parameter_store" {
 module "ecr" {
   source                      = "../modules/ecr"
 }
+
+module "iam" {
+  source                      = "../modules/iam"
+  app_name = var.app_name
+}

@@ -31,7 +31,7 @@ resource "aws_ssm_parameter" "api_name" {
 resource "aws_ssm_parameter" "api_gateway_endpoint" {
   name  = "/${var.app_name}/apiGatewayEndpoint"
   type  = "String"
-  value = join("", ["${var.api_gateway_endpoint}", "${var.api_gateway_stage_name}"])
+  value = join("", [var.api_gateway_endpoint, var.api_gateway_stage_name])
 }
 
 resource "aws_ssm_parameter" "markdown_s3_bucker_name" {
