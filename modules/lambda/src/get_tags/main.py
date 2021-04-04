@@ -32,15 +32,21 @@ def lambda_handler(event: dict, context):
     user_name: str = event['pathParameters']['userName']
 
     try:
-        response_body = {
-            'data': query_user_tag(user_name)
-        }
+        response_body = query_user_tag(user_name)
 
         return {
             'statusCode': 200,
+            'headers': {
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+            },
             'body': json.dumps(response_body)
         }
     except ClientError:
         return {
+            'headers': {
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+            },
             'statusCode': 500,
         }

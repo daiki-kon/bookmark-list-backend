@@ -175,7 +175,7 @@ path: https://domain/user/{userName}/tags
 response: 成功 -> 200, 何らかのエラー発生 -> 500
 ```.json
 {
-  "data": [
+  [
     {
       "tagID": "8e6e97e6-260a-4d94-8f8b-da93efac4f13",
       "tagName": "React"
