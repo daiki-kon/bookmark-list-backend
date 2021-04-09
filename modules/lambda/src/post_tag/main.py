@@ -36,9 +36,8 @@ def lambda_handler(event: dict, context):
         put_item(user_name=user_name, tag_id=tag_id, tag_name=tag_name)
 
         response_body = {
-            'data': {
-                'tagID': tag_id
-            }
+            'id': tag_id,
+            'name': tag_name
         }
 
         return {
